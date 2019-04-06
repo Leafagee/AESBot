@@ -6,6 +6,8 @@
 **A Discord bot to post Fortnite AES Keys built in Javascript and made for Heroku**
 
 ## GETTING STARTED
+### Important
+This bot is fully made for Heroku and isn't personalized at all. Read the code carefully to change/add some stuffs depending on your requirements (i.e. Heroku link to ping)
 ### Prerequisites
 [Install Node.js](https://nodejs.org/en/)
 ### How does it works
