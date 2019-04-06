@@ -16,7 +16,7 @@ app.get('/', function(request, response) {
 //HEROKU NO IDLE
 var http = require("http");
 setInterval(function() {
-    http.get("http://fn-aesbot.herokuapp.com/");
+    http.get("http://aesbot.herokuapp.com/");
 }, 300000);
 
 //FORTNITE LOGIN
