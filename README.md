@@ -31,8 +31,10 @@ npm install node-cron
     - `epicPASSWORD` - [Fortnite-API](https://www.npmjs.com/package/fortnite-api) access_token used to ask the dynamic AES Keys
     - `sAESKEY` - the message posted when `aes` command is used
   - Go to `Deploy` and follow the steps depending on your deployment method
+
+**4.** Open `AESBot.js`, change `http.get("http://aesbot.herokuapp.com/");` to `http.get("http://<your heroku app name here kthx>.herokuapp.com/");`
   
-**4.** Your bot is now running 24/7 and is pinged each 5 minutes to keep it alive on heroku. Dynamic AES Keys are checked everyday at shop rotation time + 5 seconds, however if you wanna check if a key has been released early, use `faes`.
+**5.** Your bot is now running 24/7 and is pinged each 5 minutes to keep it alive on heroku. Dynamic AES Keys are checked everyday at shop rotation time + 5 seconds, however if you wanna check if a key has been released early, use `faes`.
     
 ## DOCUMENTATION
 ### Features
@@ -47,5 +49,8 @@ npm install node-cron
 - [Fortnite-API](https://www.npmjs.com/package/fortnite-api)
 - [node-cron](https://www.npmjs.com/package/node-cron)
 
+## CHANGELOG
+- 06/04/19 Initial Release v1.0
+
 ## TODO
-- [ ] Better way to detect new keys
+- [ ] Better way to detect new keys, use this fucking txt file
