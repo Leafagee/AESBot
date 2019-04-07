@@ -7,17 +7,13 @@
 
 ## GETTING STARTED
 ### Important
-This bot is fully made for Heroku and isn't personalized at all. Read the code carefully to change/add some stuffs depending on your requirements
+This bot is fully made for Heroku and isn't personalized at all. Read the code carefully to change/add some stuffs depending on your requirements (i.e. Heroku link to ping)
 ### Prerequisites
 [Install Node.js](https://nodejs.org/en/)
 ### How does it works
 **1.** Install all needed npm dependencies
 ```js
-npm install axios
-npm install discord.js
-npm install express
-npm install fortnite-api
-npm install node-cron
+npm install
 ```
 **2.** Create your [Discord Bot](https://discordapp.com/developers/applications/)
 
@@ -51,7 +47,7 @@ npm install node-cron
 
 ## CHANGELOG
 ~~- 06/04/19 Initial Release v1.0~~
-- 07/04/19 v1.1 Better detection for new keys
+- 07/04/19 Release v1.1 Better detection when new keys are released
 
 ## TODO
 - [x] Better way to detect new keys, use this fucking txt file
