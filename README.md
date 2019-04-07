@@ -7,7 +7,7 @@
 
 ## GETTING STARTED
 ### Important
-This bot is fully made for Heroku and isn't personalized at all. Read the code carefully to change/add some stuffs depending on your requirements (i.e. Heroku link to ping)
+This bot is fully made for Heroku and isn't personalized at all. Read the code carefully to change/add some stuffs depending on your requirements
 ### Prerequisites
 [Install Node.js](https://nodejs.org/en/)
 ### How does it works
@@ -44,9 +44,10 @@ npm install
 - [Express](https://www.npmjs.com/package/express)
 - [Fortnite-API](https://www.npmjs.com/package/fortnite-api)
 - [node-cron](https://www.npmjs.com/package/node-cron)
+- [simple-array-diff](https://www.npmjs.com/package/simple-array-diff)
 
 ## CHANGELOG
-~~- 06/04/19 Initial Release v1.0~~
+- ~~06/04/19 Initial Release v1.0~~
 - 07/04/19 Release v1.1 Better detection when new keys are released
 
 ## TODO
