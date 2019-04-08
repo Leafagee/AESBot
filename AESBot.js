@@ -44,9 +44,19 @@ client.on('ready', () => {
 
     var cron = require('node-cron');
     fortniteAPI.login().then(() => {
-        getAESKeys();
+        try {
+            registerKeys(false);
+          }
+          catch(error) {
+            console.log(error);
+          }
         cron.schedule('5 0 0 * * *', () => { // UTC from heroku --> shop rotation + 5 seconds
-            compareAESKeys();
+            try {
+                registerKeys(true);
+              }
+              catch(error) {
+                console.log(error);
+              }
           });
     });
 });
@@ -79,7 +89,12 @@ function processCommand(receivedMessage) {
         if (receivedMessage.member.roles.some(role => role.name === 'Moderator'))
         {
             receivedMessage.delete();
-            compareAESKeys();
+            try {
+                registerKeys(true);
+              }
+              catch(error) {
+                console.log(error);
+              }
         }
         else
         {
@@ -130,16 +145,14 @@ function splitGUID(input, len) {
 
 //FORTNITE GET AES
 var fs = require('fs');
-function getAESKeys() {
-    try {
-        doStuff();
-      }
-      catch(error) {
-        console.log(error);
-      }
-};
-function doStuff()
+var  arrayDiff = require('simple-array-diff');
+function registerKeys(compare)
 {
+    if (compare == true)
+    {
+        var oldKeys = fs.readFileSync('aes.txt').toString().split("\n");
+    }
+
     let headers = {};
     headers["X-EpicGames-Language"] = "en";
     headers["Authorization"] = "bearer " + fortniteAPI.access_token;
@@ -173,130 +186,24 @@ function doStuff()
         }
 
         lineReader.on('line', function (line) {
-            convert(line);
+            convert(line, false);
         });
         console.log("Keys added to file");
-    }).catch(err => {
-        console.log(err);
-    });
-};
-function convert(theLines)
-{
-    var parts = theLines.split(':');
 
-    var guid = splitGUID(parts[0], 8);
-    var pakGUID = "";
-    var c = 0;
-    for (var i = 0; i < guid.length; i++)
-    {
-        c += 1;
-        if (c != guid.length)
+        if (compare == true)
         {
-            pakGUID += parseInt(guid[i], 16) + "-";
-        }
-        else
-        {
-            pakGUID += parseInt(guid[i], 16);
-        }
-    }
-    
-    var key = parts[1];
-    var aeskey = "";
-    try{
-        let buff = Buffer.from(key, 'base64').toString('hex');
-        aeskey = buff;
-    }
-    catch(error) {
-        console.log(error);
-    }
-    
-    var item = parts[2];
-    
-    var output = "";
-    var result = dict[pakGUID] === undefined;
-    if (!result)
-    {
-        output += "0x" + aeskey.toString().replace('-', '').toUpperCase() + " - **" + item + "** - " + dict[pakGUID] + "\n";
-    }
-    else
-    {
-        output += "0x" + aeskey.toString().replace('-', '').toUpperCase() + " - " + item + "\n";
-    }
-    fs.appendFileSync('AESKeys.txt', output, function (err) {
-        if (err) console.log(err);
-    });
-}
-
-//FORTNITE COMPARE AES
-var  arrayDiff = require('simple-array-diff');
-function compareAESKeys() {
-    try {
-        doStuff2();
-      }
-      catch(error) {
-        console.log(error);
-      }
-};
-function doStuff2()
-{
-    if (!fs.existsSync("aes.txt")) {
-        fs.writeFileSync('aes.txt', '', 'utf-8');
-        console.log("aes.txt created");
-        compareAESKeys();
-    }
-    else
-    {
-        var oldKeys = fs.readFileSync('aes.txt').toString().split("\n");
-    
-        let headers = {};
-        headers["X-EpicGames-Language"] = "en";
-        headers["Authorization"] = "bearer " + fortniteAPI.access_token;
-        axios({
-            url: "https://fortnite-public-service-prod11.ol.epicgames.com/fortnite/api/storefront/v2/keychain",
-            method: "GET",
-            headers : headers,
-            responseType: "json"
-        }).then(data => {
-            var sKeys = data.data;
-            fs.writeFileSync("aes.txt", sKeys.toString().split(',').join('\n'), function(err) {
-                if(err) {
-                    return console.log(err);
-                }
-            });
-
-            var lineReader = require('readline').createInterface({
-                input: require('fs').createReadStream('aes.txt')
-            });
-
-            if (fs.existsSync("AESKeys.txt")) {
-                var data = fs.readFileSync('AESKeys.txt', 'utf-8');
-                var newValue = data.replace(data, '');
-                fs.writeFileSync('AESKeys.txt', newValue, 'utf-8');
-                console.log("AESKeys.txt cleared");
-            }
-            else
-            {
-                fs.writeFileSync('AESKeys.txt', '', 'utf-8');
-                console.log("AESKeys.txt created");
-            }
-
-            lineReader.on('line', function (line) {
-                convert(line);
-            });
-            console.log("Keys added to file");
-
             var newKeys = fs.readFileSync('aes.txt').toString().split("\n");
             var diffpls = arrayDiff(oldKeys, newKeys);
             for(i in diffpls.added) {
                 console.log(diffpls.added[i]);
-                compare(diffpls.added[i]);
+                convert(diffpls.added[i], true);
             }
-        }).catch(err => {
-            console.log(err);
-        });
-    }
+        }
+    }).catch(err => {
+        console.log(err);
+    });
 };
-function compare(theLines)
+function convert(theLines, send)
 {
     var parts = theLines.split(':');
 
@@ -333,12 +240,18 @@ function compare(theLines)
     if (!result)
     {
         output += "0x" + aeskey.toString().replace('-', '').toUpperCase() + " - **" + item + "** - " + dict[pakGUID] + "\n";
-        client.channels.get(process.env.aesCHANNELID).send(output);
+        if (send == true)
+        {
+            client.channels.get(process.env.aesCHANNELID).send(output);
+        }
     }
     else
     {
         output += "0x" + aeskey.toString().replace('-', '').toUpperCase() + " - " + item + "\n";
-        client.channels.get(process.env.aesCHANNELID).send(output);
+        if (send == true)
+        {
+            client.channels.get(process.env.aesCHANNELID).send(output);
+        }
     }
     fs.appendFileSync('AESKeys.txt', output, function (err) {
         if (err) console.log(err);

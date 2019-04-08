@@ -43,8 +43,8 @@ npm install
 - [Discord.js](https://discord.js.org/#/)
 - [Express](https://www.npmjs.com/package/express)
 - [Fortnite-API](https://www.npmjs.com/package/fortnite-api)
-- [node-cron](https://www.npmjs.com/package/node-cron)
-- [simple-array-diff](https://www.npmjs.com/package/simple-array-diff)
+- [Node-Cron](https://www.npmjs.com/package/node-cron)
+- [Simple Array Diff](https://www.npmjs.com/package/simple-array-diff)
 
 ## CHANGELOG
 - ~~06/04/19 Initial Release v1.0~~
