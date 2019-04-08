@@ -86,7 +86,7 @@ function processCommand(receivedMessage) {
     }
     else if (primaryCommand == "faes")
     {
-        if (receivedMessage.member.roles.some(role => role.name === 'Moderator'))
+        if (receivedMessage.member.roles.some(role => role.name === 'Master'))
         {
             receivedMessage.delete();
             try {

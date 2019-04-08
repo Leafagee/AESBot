@@ -7,7 +7,7 @@
 
 ## GETTING STARTED
 ### Important
-This bot is fully made for Heroku and isn't personalized at all. Read the code carefully to change/add some stuffs depending on your requirements
+This bot is fully made for Heroku and isn't personalized at all. Read the code carefully to change/add some stuffs depending on your requirements (i.e. Role needed to use `faes`)
 ### Prerequisites
 [Install Node.js](https://nodejs.org/en/)
 ### How does it works
@@ -35,7 +35,7 @@ npm install
 ## DOCUMENTATION
 ### Features
 1. `aes` - Post Fortnite Static AES Key
-2. `faes` - Post Fortnite Dynamic AES Keys (Moderator role needed)
+2. `faes` - Post Fortnite Dynamic AES Keys (role of your choice needed)
 3. `clear amount` - Clear messages, default amount is set to 100 (User must have Manage Messages permission)
 4. `help` - Summarize the commands
 ### What i'm using
