@@ -71,15 +71,30 @@ client.on('message', (receivedMessage) => {
     }
 });
 //BOT COMMANDS
+function announcements(channelID, text)
+{
+    var textToCheck = text;
+    if (textToCheck.includes("<taghere>"))
+    {
+        textToCheck = textToCheck.replace("<taghere>", "@here");
+    }
+    if (textToCheck.includes("<tageveryone>"))
+    {
+        textToCheck = textToCheck.replace("<tageveryone>", "@everyone");
+    }
+    var textToSend = textToCheck;
+    client.channels.get(channelID).send(textToSend);
+}
 function processCommand(receivedMessage) {
-    let fullCommand = receivedMessage.content.substr(1) // Remove the leading exclamation mark
+    let fullCommand = receivedMessage.content.substr(process.env.botPREFIX.length) // No prefix
     let splitCommand = fullCommand.split(" ") // Split the message up in to pieces for each space
-    let primaryCommand = splitCommand[0] // The first word directly after the exclamation is the command
-    let arguments = splitCommand.slice(1) // All other words are arguments/parameters/options for the command
+    let primaryCommand = splitCommand[0] // The first word directly after the prefix is the command
+    let firstArguments = splitCommand[1]
+    let otherArguments = splitCommand.slice(2).join(" ")
 
     console.log("Command: " + process.env.botPREFIX + primaryCommand)
     console.log("Author: " + receivedMessage.author.tag + "\t\t" + receivedMessage.author)
-    console.log("Arguments: " + arguments) // There may not be any arguments
+    console.log("Arguments: " + firstArguments + " " + otherArguments) // There may not be any arguments
 
     if (primaryCommand == "aes") {
         receivedMessage.channel.send(receivedMessage.author + " " + process.env.sAESKEY)
@@ -104,10 +119,27 @@ function processCommand(receivedMessage) {
     else if (primaryCommand == "clear")
     {
         if (receivedMessage.member.hasPermission("MANAGE_MESSAGES")) {
-            receivedMessage.channel.fetchMessages({ limit: parseInt(arguments) + 1 })
+            receivedMessage.channel.fetchMessages({ limit: parseInt(firstArguments) + 1 })
                .then(function(list){
                    receivedMessage.channel.bulkDelete(list);
                 }, function(err){console.log(err)})
+        }
+    }
+    else if (primaryCommand == "ann")
+    {
+        receivedMessage.delete();
+        if (receivedMessage.member.roles.some(role => role.name === 'Moderator'))
+        {
+            try {
+                announcements(firstArguments, otherArguments);
+            }
+            catch(error) {
+                console.log(error);
+            }
+        }
+        else
+        {
+            receivedMessage.channel.send(receivedMessage.author + " You don't have enough permissions to use this command.");
         }
     }
     else if (primaryCommand == "help")
@@ -128,7 +160,7 @@ function help(receivedMessage)
   //.setTimestamp()
   .addField("Main Commands",
   "`" + process.env.botPREFIX + "aes` Sends the latest Fortnite Static AES Key\n")
-  .addField("Mods Command", "`" + process.env.botPREFIX + "faes` Force to update the latest Fortnite Dynamic AES Keys in <#" + process.env.aesCHANNELID + ">\n`" + process.env.botPREFIX + "clear amount` It does what it says, default amount is set to 100\n")
+  .addField("Mods Command", "`" + process.env.botPREFIX + "faes` Force to update the latest Fortnite Dynamic AES Keys in <#" + process.env.aesCHANNELID + ">\n`" + process.env.botPREFIX + "clear amount` It does what it says, default amount is set to 100\n`" + process.env.botPREFIX + "ann channelid message` Send messages using the bot as the announcer\n")
 
   receivedMessage.channel.send({embed});
 }

@@ -36,8 +36,9 @@ npm install
 ### Features
 1. `aes` - Post Fortnite Static AES Key
 2. `faes` - Post Fortnite Dynamic AES Keys (role of your choice needed)
-3. `clear amount` - Clear messages, default amount is set to 100 (User must have Manage Messages permission)
-4. `help` - Summarize the commands
+3. `ann channelid message` - Send your message using the bot as the announcer
+4. `clear amount` - Clear messages, default amount is set to 100 (User must have Manage Messages permission)
+5. `help` - Summarize the commands
 ### What i'm using
 - [Axios](https://www.npmjs.com/package/axios)
 - [Discord.js](https://discord.js.org/#/)
