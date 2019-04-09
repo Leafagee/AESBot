@@ -161,7 +161,7 @@ function help(receivedMessage)
   //.setTimestamp()
   .addField("Main Commands",
   "`" + process.env.botPREFIX + "aes` Sends the latest Fortnite Static AES Key\n")
-  .addField("Mods Command", "`" + process.env.botPREFIX + "faes` Force to update the latest Fortnite Dynamic AES Keys in <#" + process.env.aesCHANNELID + ">\n`" + process.env.botPREFIX + "clear amount` It does what it says, default amount is set to 100\n`" + process.env.botPREFIX + "ann channelid message` Send messages using the bot as the announcer\n")
+  .addField("Mods Command", "`" + process.env.botPREFIX + "faes` Force to update the latest Fortnite Dynamic AES Keys in <#" + process.env.aesCHANNELID + ">\n`" + process.env.botPREFIX + "ann channelid message` Sends messages using the bot as the announcer (Use `<tageveryone>` or `<taghere>` to tag your server in your message)\n`" + process.env.botPREFIX + "clear amount` It does what it says, default amount is set to 100\n")
 
   receivedMessage.channel.send({embed});
 }
