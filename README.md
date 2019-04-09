@@ -49,7 +49,8 @@ npm install
 
 ## CHANGELOG
 - ~~06/04/19 Initial Release v1.0~~
-- 07/04/19 Release v1.1 Better detection when new keys are released
+- ~~07/04/19 Release v1.1 Better detection when new keys are released~~
+- 09/04/19 Release v1.2 Introducing `ann` command to make announcements as the bot
 
 ## TODO
 - [x] Better way to detect new keys, use this fucking txt file
