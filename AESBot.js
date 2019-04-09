@@ -94,7 +94,8 @@ function processCommand(receivedMessage) {
 
     console.log("Command: " + process.env.botPREFIX + primaryCommand)
     console.log("Author: " + receivedMessage.author.tag + "\t\t" + receivedMessage.author)
-    console.log("Arguments: " + firstArguments + " " + otherArguments) // There may not be any arguments
+    var fullArg = otherArguments.replace("\n", " <new_line> ")
+    console.log("Arguments: " + firstArguments + " " + fullArg) // There may not be any arguments
 
     if (primaryCommand == "aes") {
         receivedMessage.channel.send(receivedMessage.author + " " + process.env.sAESKEY)
