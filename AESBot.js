@@ -52,6 +52,7 @@ client.on('ready', () => {
           }
         cron.schedule('5 0 0 * * *', () => { // UTC from heroku --> shop rotation + 5 seconds
             try {
+                fortniteAPI.refreshToken();
                 registerKeys(true);
               }
               catch(error) {
@@ -106,6 +107,7 @@ function processCommand(receivedMessage) {
         {
             receivedMessage.delete();
             try {
+                fortniteAPI.refreshToken();
                 registerKeys(true);
               }
               catch(error) {
