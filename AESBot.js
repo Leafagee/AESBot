@@ -52,16 +52,16 @@ client.on('ready', () => {
           }
     });
 
-    fortniteAPI.login().then(() => {
-        cron.schedule('5 0 0 * * *', () => { // UTC from heroku --> shop rotation + 5 seconds
+    cron.schedule('2 0 0 * * *', () => { // UTC from heroku --> shop rotation + 2 seconds
+        fortniteAPI.login().then(() => {
             try {
                 registerKeys(true);
               }
               catch(error) {
                 console.log(error);
               }
-          });
-    });
+        });
+      });
 });
 //BOT PREFIX
 client.on('message', (receivedMessage) => {

@@ -30,7 +30,7 @@ npm install
 
 **4.** Open `AESBot.js`, change `http.get("http://aesbot.herokuapp.com/");` to `http.get("http://<your heroku app name here kthx>.herokuapp.com/");`
   
-**5.** Your bot is now running 24/7 and is pinged each 5 minutes to keep it alive on heroku. Dynamic AES Keys are checked everyday at shop rotation time + 5 seconds, however if you wanna check if a key has been released early, use `faes`.
+**5.** Your bot is now running 24/7 and is pinged each 5 minutes to keep it alive on heroku. Dynamic AES Keys are checked everyday at shop rotation time + 2 seconds, however if you wanna check if a key has been released early, use `faes`.
     
 ## DOCUMENTATION
 ### Features
