@@ -16,7 +16,7 @@ app.get('/', function(request, response) {
 //HEROKU NO IDLE
 var http = require("http");
 setInterval(function() {
-    http.get("http://aesbot.herokuapp.com/");
+    http.get("https://fortnite-discord-bot.herokuapp.com/");
 }, 300000);
 
 //FORTNITE LOGIN
@@ -105,7 +105,7 @@ function processCommand(receivedMessage) {
     }
     else if (primaryCommand == "faes")
     {
-        if (receivedMessage.member.roles.some(role => role.name === 'Master'))
+        if (receivedMessage.member.roles.some(role => role.name === 'MainDev'))
         {
             receivedMessage.delete();
             try {
