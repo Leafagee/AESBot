@@ -313,5 +313,12 @@ function convert(theLines, send)
     });
 }
 
+client.on("message", message => {
+    lol = process.env.botPREFIX;
+    if(message.content === `${lol}test`) {
+        message.channel.send("WAG1")
+    }
+})
+
 bot_secret_token = process.env.botTOKEN;
 client.login(bot_secret_token);
