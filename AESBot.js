@@ -139,7 +139,7 @@ function processCommand(receivedMessage) {
     else if (primaryCommand == "ann")
     {
         receivedMessage.delete();
-        if (receivedMessage.member.roles.some(role => role.name === 'Moderator'))
+        if (receivedMessage.member.roles.some(role => role.name === 'MainDev'))
         {
             try {
                 announcements(firstArguments, otherArguments);
