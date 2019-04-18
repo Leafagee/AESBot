@@ -16,7 +16,7 @@ app.get('/', function(request, response) {
 //HEROKU NO IDLE
 var http = require("http");
 setInterval(function() {
-    http.get("https://fortnite-discord-bot.herokuapp.com/");
+    http.get("http://fortnite-discord-bot.herokuapp.com/");
 }, 300000);
 
 //FORTNITE LOGIN
