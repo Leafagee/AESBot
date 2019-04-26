@@ -105,7 +105,7 @@ function processCommand(receivedMessage) {
     }
     else if (primaryCommand == "faes")
     {
-        if (receivedMessage.member.roles.some(role => role.name === 'MainDev'))
+        if (receivedMessage.member.roles.some(role => role.name === 'Owner'))
         {
             receivedMessage.delete();
             try {
@@ -139,7 +139,7 @@ function processCommand(receivedMessage) {
     else if (primaryCommand == "ann")
     {
         receivedMessage.delete();
-        if (receivedMessage.member.roles.some(role => role.name === 'MainDev'))
+        if (receivedMessage.member.roles.some(role => role.name === 'Owner'))
         {
             try {
                 announcements(firstArguments, otherArguments);
